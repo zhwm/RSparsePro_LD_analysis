@@ -1,4 +1,5 @@
-import pandas as pd 
+import pandas as pd
+import gzip
 import argparse
 
 def get_bim_dict(bimdir):
@@ -19,7 +20,7 @@ def get_bim_dict(bimdir):
 
 def get_ss_dict(ssdir, bim_dict, RSID, BETA, SE, A1, A2, MAF):
     ss_dict = {}
-    with open(ssdir) as ss:
+    with gzip.open(ssdir, 'rt') as ss:
         header = next(ss)
         for line in ss:
             ll = dict(zip(header.strip().split(), line.strip().split()))
@@ -31,7 +32,7 @@ def get_ss_dict(ssdir, bim_dict, RSID, BETA, SE, A1, A2, MAF):
     return ss_dict
 
 def parse_args():
-    parser = argparse.ArgumentParser(description='RSparsePro Commands:')
+    parser = argparse.ArgumentParser(description='format Commands:')
     parser.add_argument('--bim', type=str, default=None, help='path to bim file', required=True)
     parser.add_argument('--rss', type=str, default=None, nargs='+', help='path to raw summary statistics', required=True)
     parser.add_argument('--save', type=str, default=None, nargs='+', help='path to save results', required=True)
