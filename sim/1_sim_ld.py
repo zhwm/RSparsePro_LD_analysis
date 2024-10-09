@@ -53,7 +53,7 @@ def get_z(kc, h2, Ntar, ld, geno_n):
     btrue = np.zeros(p)
     btrue[cidx] = np.sqrt(h2)
     ynull = np.random.normal(scale=np.sqrt(1 - h2 * kc), size=n) # var(ynull) = 1-kh^2
-    zhat = np.dot(ld, btrue*np.sqrt(Ntar)) + np.dot(geno_n, ynull)/n # bhat = Rb + Xty/n* sqrt(n/Ntar) 
+    zhat = np.dot(ld, btrue*np.sqrt(Ntar)) + np.dot(geno_n, ynull)/sqrt(n) # bhat = Rb + Xty/n* sqrt(n/Ntar) 
     return zhat.round(4), btrue
 
 class RSparsePro(object):
